@@ -1,9 +1,16 @@
 package com.hivetech.mvc.entity;
 
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public class BaseEntity {
     @Id
     @Column(name ="id")
@@ -11,14 +18,20 @@ public class BaseEntity {
     private Long id;
 
     @Column(name ="createddate")
+    @CreatedDate
     private Date createdDate;
+
     @Column(name ="modifieddate")
+    @LastModifiedDate
     private Date modifiedDate;
 
     @Column(name ="createdBy")
-    private Date createdBy;
+    @CreatedBy
+    private String createdBy;
+
     @Column(name ="modifiedby")
-    private Date modifiedby;
+    @LastModifiedBy
+    private String modifiedby;
 
     public Date getCreatedDate() {
         return createdDate;
@@ -44,19 +57,19 @@ public class BaseEntity {
         this.modifiedDate = modifiedDate;
     }
 
-    public Date getCreatedBy() {
+    public String getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(Date createdBy) {
+    public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
 
-    public Date getModifiedby() {
+    public String getModifiedby() {
         return modifiedby;
     }
 
-    public void setModifiedby(Date modifiedby) {
+    public void setModifiedby(String modifiedby) {
         this.modifiedby = modifiedby;
     }
 }
