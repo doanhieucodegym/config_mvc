@@ -4,5 +4,6 @@
         <class>com.hivetech.mvc.entity.NewEntity</class>
         <class>com.hivetech.mvc.entity.UserEntity</class>
         <class>com.hivetech.mvc.entity.RoleEntity</class>
+        <class>com.hivetech.mvc.entity.BaseEntity</class>
     </persistence-unit>
 </persistence>

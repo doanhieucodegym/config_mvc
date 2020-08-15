@@ -3,15 +3,12 @@ package com.hivetech.mvc.entity;
 import com.hivetech.mvc.model.NewModel;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "new")
-public class NewEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id ;
-
+public class NewEntity extends BaseEntity {
     @Column(name = "title")
     private String title;
 
@@ -23,14 +20,6 @@ public class NewEntity {
 
     @Column(name = "content", columnDefinition = "TEXT")
     private String content;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;

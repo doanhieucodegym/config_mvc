@@ -1,14 +1,12 @@
 package com.hivetech.mvc.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
-public class UserEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id ;
-
+public class UserEntity extends BaseEntity {
     @Column(name ="username")
     private String userName;
 
@@ -21,13 +19,11 @@ public class UserEntity {
     @Column(name ="status")
     private Integer status;
 
-    public Long getId() {
-        return id;
-    }
+    @ManyToMany
+    @JoinTable(name ="user_role",joinColumns = @JoinColumn(name ="userid"),
+                                    inverseJoinColumns = @JoinColumn(name ="roleid"))
+    private List<RoleEntity> roles = new ArrayList<>();
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getUserName() {
         return userName;
@@ -59,5 +55,13 @@ public class UserEntity {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public List<RoleEntity> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<RoleEntity> roles) {
+        this.roles = roles;
     }
 }

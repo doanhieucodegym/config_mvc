@@ -1,27 +1,19 @@
 package com.hivetech.mvc.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "role")
-public class RoleEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id ;
-
-    @Column(name ="name")
+public class RoleEntity extends BaseEntity {
+    @Column(name = "name")
     private String name;
 
-    @Column(name ="code")
+    @Column(name = "code")
     private String code;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @ManyToMany(mappedBy = "roles")
+    private List<UserEntity> userEntities = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -37,5 +29,13 @@ public class RoleEntity {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public List<UserEntity> getUserEntities() {
+        return userEntities;
+    }
+
+    public void setUserEntities(List<UserEntity> userEntities) {
+        this.userEntities = userEntities;
     }
 }
