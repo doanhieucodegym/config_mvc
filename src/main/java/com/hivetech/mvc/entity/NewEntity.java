@@ -18,7 +18,7 @@ public class NewEntity {
     @Column(name = "thumbnail")
     private String thumbnail;
 
-    @Column(name = "shortdescription", columnDefinition = "TEXT")
+    @Column(name = "shortdescription", columnDefinition = "TEXT") // text dinh nghia cho nhieu ky tu
     private String shortDescription;
 
     @Column(name = "content", columnDefinition = "TEXT")

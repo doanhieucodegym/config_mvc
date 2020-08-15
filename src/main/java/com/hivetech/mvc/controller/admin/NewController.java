@@ -19,19 +19,19 @@ public class NewController {
 	private NewServiceJPAImpl newServiceJPA;
 
 	@RequestMapping(value = "/quan-tri/bai-viet/danh-sach", method = RequestMethod.GET)
-//	public ModelAndView showList(@ModelAttribute("model")NewModel model) {
-//		ModelAndView mav = new ModelAndView("admin/new/list");
-//		model.setListResult(newService.findAll());
-//		mav.addObject("model",model);
-//		return mav;
-//	}
-
-	public ModelAndView showList(@ModelAttribute("model") NewEntity model) {
+	public ModelAndView showList(@ModelAttribute("model")NewEntity model) {
 		ModelAndView mav = new ModelAndView("admin/new/list");
-		newService.findAll();
+		newServiceJPA.finaAll();
 		mav.addObject("model",model);
 		return mav;
 	}
+
+//	public ModelAndView showList(@ModelAttribute("model") NewEntity model) {
+//		ModelAndView mav = new ModelAndView("admin/new/list");
+//		newService.findAll();
+//		mav.addObject("model",model);
+//		return mav;
+//	}
 
 	@RequestMapping(value = "/quan-tri/bai-viet/chinh-sua", method = RequestMethod.GET)
 	public ModelAndView editNew() {
