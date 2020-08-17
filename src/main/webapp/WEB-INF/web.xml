@@ -8,18 +8,6 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-    
-    <!-- sitemesh filter -->
-    <filter>
-        <filter-name>sitemesh</filter-name>
-        <filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>sitemesh</filter-name>
-        <url-pattern>/*</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
-        <dispatcher>FORWARD</dispatcher>
-    </filter-mapping>
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
@@ -43,6 +31,33 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
+<!--    &lt;!&ndash; Declare Spring Security Filter &ndash;&gt;-->
+<!--    <filter>-->
+<!--        <filter-name>springSecurityFilterChain</filter-name>-->
+<!--        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>-->
+<!--    </filter>-->
+
+<!--    <filter-mapping>-->
+<!--        <filter-name>springSecurityFilterChain</filter-name>-->
+<!--        <url-pattern>/*</url-pattern>-->
+<!--        <dispatcher>REQUEST</dispatcher>-->
+<!--        <dispatcher>ERROR</dispatcher>-->
+<!--    </filter-mapping>-->
+
+
+    <!-- sitemesh filter -->
+    <filter>
+        <filter-name>sitemesh</filter-name>
+        <filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>sitemesh</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+
+
     <session-config>
         <tracking-mode>COOKIE</tracking-mode>
     </session-config>
@@ -50,5 +65,5 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
-    
+
 </web-app>
