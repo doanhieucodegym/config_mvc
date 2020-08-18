@@ -9,13 +9,21 @@
 
     <http auto-config="false" use-expressions="true" disable-url-rewriting="true">
         <access-denied-handler error-page="/access-denied"/>
-        <form-login login-page="/login"
+        <form-login login-page="/dang-nhap"
                     username-parameter="j_username"
                     password-parameter="j_password"
                     login-processing-url="/j_spring_security_check"
                     authentication-success-handler-ref="customSuccessHandler"
-                    authentication-failure-url="/login?incorrectAccount"/>
-        <session-management invalid-session-url="/login"/>
+                    authentication-failure-url="/dang-nhap?incorrectAccount"/>
+        <session-management invalid-session-url="/dang-nhap"/>
         <logout delete-cookies="JSESSIONID"/>
     </http>
+    <authentication-manager>
+        <authentication-provider user-service-ref="customUserDetailsService">
+            <password-encoder ref="bcryptEncoder"/>
+        </authentication-provider>
+    </authentication-manager>
+    <beans:bean id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+    <beans:bean id="customUserDetailsService" class="com.hivetech.mvc.service.impl.CustomUserDetailsService"/>
+    <beans:bean id="customSuccessHandler" class="com.hivetech.mvc.security.CustomSuccessHandler"/>
 </beans:beans>
