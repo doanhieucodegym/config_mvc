@@ -1,5 +1,6 @@
 package com.hivetech.mvc.util;
 
+import com.hivetech.mvc.dto.MyUser;
 import com.hivetech.mvc.entity.RoleEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -9,6 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SecurityUtils {
+
+    public static MyUser getPrincipal(){
+        MyUser myUser = (MyUser)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        return myUser;
+    }
+
     public static List<String> getAuthorities(){
         List<String> results = new ArrayList<>();
         List<GrantedAuthority> authorities = (List<GrantedAuthority>)(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
@@ -17,4 +24,6 @@ public class SecurityUtils {
         }
         return results;
     }
+
+
 }
