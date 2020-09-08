@@ -2,11 +2,11 @@ package com.hivetech.mvc.dao;
 
 import java.util.List;
 
-import com.hivetech.mvc.model.NewModel;
+import com.hivetech.mvc.dto.NewDTO;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface INewDAO extends GenericDAO<NewModel> {
-	List<NewModel> findAll( );
+public interface INewDAO extends GenericDAO<NewDTO> {
+	List<NewDTO> findAll( );
 
 }

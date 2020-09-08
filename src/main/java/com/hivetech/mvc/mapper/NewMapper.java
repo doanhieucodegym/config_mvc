@@ -1,15 +1,15 @@
 package com.hivetech.mvc.mapper;
 
-import com.hivetech.mvc.model.NewModel;
+import com.hivetech.mvc.dto.NewDTO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class NewMapper implements RowMapper<NewModel> {
+public class NewMapper implements RowMapper<NewDTO> {
     @Override
-    public NewModel mapRow(ResultSet resultSet) {
+    public NewDTO mapRow(ResultSet resultSet) {
         try {
-            NewModel news = new NewModel();
+            NewDTO news = new NewDTO();
             news.setId(resultSet.getLong("id"));
             news.setTitle(resultSet.getString("title"));
             news.setContent(resultSet.getString("content"));

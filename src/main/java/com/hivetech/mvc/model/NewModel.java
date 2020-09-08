@@ -1,12 +1,15 @@
 package com.hivetech.mvc.model;
 
-public class NewModel extends AbstractModel<NewModel> {
+public class NewModel extends AbstractModel {
     private String title;
     private String thumbnail;
     private String shortDescription;
     private String content;
     private Long categoryId;
     private String categoryCode;
+
+    public NewModel() {
+    }
 
     public String getTitle() {
         return title;
