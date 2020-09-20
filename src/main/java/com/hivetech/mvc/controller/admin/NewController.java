@@ -3,6 +3,7 @@ package com.hivetech.mvc.controller.admin;
 import com.hivetech.mvc.dto.NewDTO;
 import com.hivetech.mvc.service.impl.NewService;
 import com.hivetech.mvc.service.impl.NewServiceJPAImpl;
+import org.jboss.logging.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -41,8 +42,9 @@ public class NewController {
 //	}
 
 	@RequestMapping(value = "/quan-tri/bai-viet/chinh-sua", method = RequestMethod.GET)
-	public ModelAndView editNew() {
+	public ModelAndView editNew(@RequestParam(value ="id",required = false)Long id) {
 		ModelAndView mav = new ModelAndView("admin/new/edit");
+		if(id != null){}
 		return mav;
 	}
 }

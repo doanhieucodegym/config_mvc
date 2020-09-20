@@ -12,4 +12,5 @@ import java.util.List;
 public interface NewServiceJPA {
     List<NewDTO> finaAll(Pageable pageable);
     int getTotalItem();
+    NewDTO findById(long id);
 }

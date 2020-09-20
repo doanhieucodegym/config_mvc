@@ -31,4 +31,10 @@ public class NewServiceJPAImpl implements NewServiceJPA {
     public int getTotalItem() {
         return (int) newRepository.count();
     }
+
+    @Override
+    public NewDTO findById(long id) {
+
+        return null;
+    }
 }
