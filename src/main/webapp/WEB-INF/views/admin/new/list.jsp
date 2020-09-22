@@ -34,9 +34,10 @@
 									<div class="table-btn-controls">
 										<div class="pull-right tableTools-container">
 											<div class="dt-buttons btn-overlap btn-group">
+												<c:url var ="createNewUrl" value="/quan-tri/bai-viet/chinh-sua"/>
 												<a flag="info"
 												   class="dt-button buttons-colvis btn btn-white btn-primary btn-bold" data-toggle="tooltip"
-												   title='Thêm bài viết' href='#'>
+												   title='Thêm bài viết' href='${createNewUrl}'>
 															<span>
 																<i class="fa fa-plus-circle bigger-110 purple"></i>
 															</span>
@@ -66,12 +67,15 @@
 												<tbody>
 													<c:forEach var="item" items="${model.listResult}">
 														<tr>
-															<td><input type="checkbox" id="checkbox_${item.id}" value="${item.id}"></td>
+<%--															<td><input type="checkbox" id="checkbox_${item.id}" value="${item.id}"></td>--%>
 															<td>${item.title}</td>
 															<td>${item.shortDescription}</td>
 															<td>
+																<c:url var="updateNewURL" value="/quan-tri/bai-viet/chinh-sua">
+																<c:param name ="id" value="${item.id}"/>
+																</c:url>
 																<a class="btn btn-sm btn-primary btn-edit" data-toggle="tooltip"
-																   title="Cập nhật bài viết" href='#'><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+																   title="Cập nhật bài viết" href='${updateNewURL}'><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 																</a>
 															</td>
 														</tr>

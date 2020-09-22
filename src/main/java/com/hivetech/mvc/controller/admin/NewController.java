@@ -1,6 +1,8 @@
 package com.hivetech.mvc.controller.admin;
 
 import com.hivetech.mvc.dto.NewDTO;
+import com.hivetech.mvc.service.CategoryServiceJpa;
+import com.hivetech.mvc.service.impl.CategoryServiceJPAImpl;
 import com.hivetech.mvc.service.impl.NewService;
 import com.hivetech.mvc.service.impl.NewServiceJPAImpl;
 import org.jboss.logging.annotations.Param;
@@ -19,6 +21,8 @@ public class NewController {
 	private NewService newService;
 	@Autowired
 	private NewServiceJPAImpl newServiceJPA;
+	@Autowired
+	private CategoryServiceJPAImpl categoryServiceJpa;
 
 	@RequestMapping(value = "/quan-tri/bai-viet/danh-sach", method = RequestMethod.GET)
 	public ModelAndView showList(@RequestParam("page") int page, @RequestParam("limit") int limit) {
@@ -44,7 +48,12 @@ public class NewController {
 	@RequestMapping(value = "/quan-tri/bai-viet/chinh-sua", method = RequestMethod.GET)
 	public ModelAndView editNew(@RequestParam(value ="id",required = false)Long id) {
 		ModelAndView mav = new ModelAndView("admin/new/edit");
-		if(id != null){}
+		NewDTO model= new NewDTO();
+		if(id != null){
+			model = newServiceJPA.findById(id);
+		}
+		mav.addObject("category",categoryServiceJpa.finAll());
+		mav.addObject("model",model);
 		return mav;
 	}
 }
