@@ -1,5 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/common/taglib.jsp" %>
+<c:url var="newURL" value="/quan-tri/bai-viet/danh-sach"/>
+<c:url var="editNewURL" value="/quan-tri/bai-viet/chinh-sua"/>
+<c:url var="newAPI" value="/api/new"/>
 <html>
 <head>
     <title>Chỉnh sửa bài viết</title>
@@ -35,7 +38,7 @@
                         </div>
                         <div class="form-group">
                             <label for="categoryCode" class="col-sm-3 control-label no-padding-right">Thể loại bài
-                                :</label>
+                                :</label>label
                             <div class="col-sm-9">
 <%--                                <select class="form-control" id="categoryCode" name="categoryCode">--%>
 <%--                                    <option value="">Chọn thể loại</option>--%>
@@ -107,7 +110,47 @@
         e.preventDefault();
         var formData = $('#formAddOrUpdateNew').serializeArray();
         console.log(formData);
+        $.each(formData, function (i, v) {
+            data[""+v.name+""] = v.value;
+        });
+    var id = $('#newId').val();
+    if (id == "") {
+        addNew(data);
+    } else {
+        updateNew(data);
+    }
     });
+    function addNew(data) {
+        $.ajax({
+            url: '${newAPI}',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            dataType: 'json',
+            success: function (result) {
+                window.location.href = "${editNewURL}?id="+result.id+"&message=insert_success";
+            },
+            error: function (error) {
+                window.location.href = "${newURL}?page=1&limit=2&message=error_system";
+            }
+        });
+    }
+
+    function updateNew(data) {
+        $.ajax({
+            url: '${newAPI}',
+            type: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            dataType: 'json',
+            success: function (result) {
+                window.location.href = "${editNewURL}?id="+result.id+"&message=update_success";
+            },
+            error: function (error) {
+                window.location.href = "${editNewURL}?id="+result.id+"&message=error_system";
+            }
+        });
+    }
 </script>
 </body>
 </html>

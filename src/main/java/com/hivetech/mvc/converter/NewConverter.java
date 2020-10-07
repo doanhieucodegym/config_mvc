@@ -26,4 +26,11 @@ public class NewConverter {
      result.setThumbnail(dto.getThumbnail());
      return result;
  }
+    public NewEntity toEntity( NewEntity result,NewDTO dto){
+        result.setTitle(dto.getTitle());
+        result.setShortDescription(dto.getShortDescription());
+        result.setContent(dto.getContent());
+        result.setThumbnail(dto.getThumbnail());
+        return result;
+    }
 }

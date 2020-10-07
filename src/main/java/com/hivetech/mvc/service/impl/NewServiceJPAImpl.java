@@ -2,7 +2,9 @@ package com.hivetech.mvc.service.impl;
 
 import com.hivetech.mvc.converter.NewConverter;
 import com.hivetech.mvc.dto.NewDTO;
+import com.hivetech.mvc.entity.CategoryEntity;
 import com.hivetech.mvc.entity.NewEntity;
+import com.hivetech.mvc.repository.CategoryRepository;
 import com.hivetech.mvc.repository.NewRepository;
 import com.hivetech.mvc.service.NewServiceJPA;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ public class NewServiceJPAImpl implements NewServiceJPA {
     private NewRepository newRepository;
     @Autowired
     private NewConverter newConverter;
+    @Autowired
+    private CategoryRepository categoryRepository;
     @Override
     public List<NewDTO> finaAll(Pageable pageable) {
         List<NewDTO> models = new ArrayList<>();
@@ -38,4 +42,38 @@ public class NewServiceJPAImpl implements NewServiceJPA {
         NewEntity entity = newRepository.findOne(id);
         return newConverter.toDTO(entity);
     }
+
+    @Override
+    public NewDTO add(NewDTO dto) {
+        CategoryEntity category = categoryRepository.findByCode(dto.getCategoryCode());
+        NewEntity newEntity = newConverter.toEntity(dto);
+        newEntity.setCategory(category);
+        newEntity = newRepository.save(newEntity);
+        return newConverter.toDTO(newEntity);
+    }
+
+    @Override
+    public NewDTO update(NewDTO dto) {
+        NewEntity oldNew = newRepository.findOne(dto.getId());
+        CategoryEntity category =categoryRepository.findByCode(dto.getCategoryCode());
+        oldNew.setCategory(category);
+        NewEntity updateNew = newConverter.toEntity(oldNew,dto);
+        return newConverter.toDTO(newRepository.save(updateNew));
+    }
+
+    @Override
+    public NewDTO save(NewDTO dto) {
+        CategoryEntity category = categoryRepository.findByCode(dto.getCategoryCode());
+        NewEntity newEntity =new NewEntity();
+        if(dto.getId() != null){
+            NewEntity oldNew = newRepository.findOne(dto.getId());
+            oldNew.setCategory(category);
+            newEntity =newConverter.toEntity(oldNew,dto);
+        }else{
+            newEntity =newConverter.toEntity(dto);
+            newEntity.setCategory(category);
+        }
+        return newConverter.toDTO(newRepository.save(newEntity));
+   }
+
 }

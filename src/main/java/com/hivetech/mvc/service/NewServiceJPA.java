@@ -13,4 +13,7 @@ public interface NewServiceJPA {
     List<NewDTO> finaAll(Pageable pageable);
     int getTotalItem();
     NewDTO findById(long id);
+    NewDTO add(NewDTO dto);
+    NewDTO update(NewDTO updateDto);
+    NewDTO save(NewDTO dto);
 }
