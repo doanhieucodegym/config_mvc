@@ -10,6 +10,7 @@ import com.hivetech.mvc.service.NewServiceJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,7 @@ public class NewServiceJPAImpl implements NewServiceJPA {
     }
 
     @Override
+    @Transactional
     public NewDTO add(NewDTO dto) {
         CategoryEntity category = categoryRepository.findByCode(dto.getCategoryCode());
         NewEntity newEntity = newConverter.toEntity(dto);
@@ -53,6 +55,7 @@ public class NewServiceJPAImpl implements NewServiceJPA {
     }
 
     @Override
+    @Transactional
     public NewDTO update(NewDTO dto) {
         NewEntity oldNew = newRepository.findOne(dto.getId());
         CategoryEntity category =categoryRepository.findByCode(dto.getCategoryCode());
@@ -62,6 +65,7 @@ public class NewServiceJPAImpl implements NewServiceJPA {
     }
 
     @Override
+    @Transactional
     public NewDTO save(NewDTO dto) {
         CategoryEntity category = categoryRepository.findByCode(dto.getCategoryCode());
         NewEntity newEntity =new NewEntity();
@@ -75,5 +79,13 @@ public class NewServiceJPAImpl implements NewServiceJPA {
         }
         return newConverter.toDTO(newRepository.save(newEntity));
    }
+
+    @Override
+    @Transactional
+    public void delete(long[] ids) {
+        for(long id:ids){
+            newRepository.delete(id);
+        }
+    }
 
 }

@@ -28,25 +28,32 @@
         <div class="page-content">
             <div class="row">
                 <div class="col-xs-12">
+
+                    <c:if test="${not empty message}">
+                        <div class="alert alert-${alert}">
+                                ${message}
+                        </div>
+                    </c:if>
+
                     <form:form class="form-horizontal" role="form" id="formAddOrUpdateNew" modelAttribute="model">
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right">Tên bài viết</label>
                             <div class="col-sm-9">
-                               <form:input path="title" class="col-xs-10 col-sm-5"></form:input>
-<%--                                <input type="text" id="title" name="title" value="${model.title}"  />--%>
+                                <form:input path="title" class="col-xs-10 col-sm-5"></form:input>
+                                    <%--                                <input type="text" id="title" name="title" value="${model.title}"  />--%>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="categoryCode" class="col-sm-3 control-label no-padding-right">Thể loại bài
                                 :</label>label
                             <div class="col-sm-9">
-<%--                                <select class="form-control" id="categoryCode" name="categoryCode">--%>
-<%--                                    <option value="">Chọn thể loại</option>--%>
-<%--                                    <c:forEach var="item" items="${category}">--%>
-<%--                                        <option value="${item.code}">${item.name}</option>--%>
-<%--                                    </c:forEach>--%>
-<%--                                </select>--%>
-                                <form:select path="categoryCode" id ="categoryCode">
+                                    <%--                                <select class="form-control" id="categoryCode" name="categoryCode">--%>
+                                    <%--                                    <option value="">Chọn thể loại</option>--%>
+                                    <%--                                    <c:forEach var="item" items="${category}">--%>
+                                    <%--                                        <option value="${item.code}">${item.name}</option>--%>
+                                    <%--                                    </c:forEach>--%>
+                                    <%--                                </select>--%>
+                                <form:select path="categoryCode" id="categoryCode">
                                     <form:option value="" label="--Chon the loại---"></form:option>
                                     <form:options items="${category}"></form:options>
                                 </form:select>
@@ -55,35 +62,39 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right">Ảnh đại diện</label>
                             <div class="col-sm-9">
-                                <input type="file" id="thumbnail" name="thumbnail" value="${model.thumbnail}" class="col-xs-10 col-sm-5"/>
+                                <input type="file" id="thumbnail" name="thumbnail" value="${model.thumbnail}"
+                                       class="col-xs-10 col-sm-5"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="shortDescription" class="col-sm-3 control-label no-padding-right">Mô tả:</label>
                             <div class="col-sm-9">
-                                <form:textarea path="shortDescription" class="col-xs-10 col-sm-5" rows="10" cols="10" id="shortDescription"></form:textarea>
+                                <form:textarea path="shortDescription" class="col-xs-10 col-sm-5" rows="10" cols="10"
+                                               id="shortDescription"></form:textarea>
                             </div>
 
                         </div>
                         <div class="form-group">
                             <label for="content" class="col-sm-3 control-label no-padding-right">Nội dung:</label>
                             <div class="col-sm-9">
-                                <form:textarea path="content" cols="10" rows="10" class="col-xs-10 col-sm-5" id="content"></form:textarea>
+                                <form:textarea path="content" cols="10" rows="10" class="col-xs-10 col-sm-5"
+                                               id="content"></form:textarea>
                             </div>
 
                         </div>
+                        <form:hidden path="id" id="newId"/>
                         <div class="clearfix form-actions">
                             <div class="col-md-offset-3 col-md-9">
                                 <c:if test="${not empty model.id}">
                                     <button class="btn btn-info" type="button" id="btnAddOrUpdateNew">
                                         <i class="ace-icon fa fa-check bigger-110"></i>
-                                       Cập nhật bài viết
+                                        Cập nhật bài viết
                                     </button>
                                 </c:if>
                                 <c:if test="${empty model.id}">
                                     <button class="btn btn-info" type="button" id="btnAddOrUpdateNew">
                                         <i class="ace-icon fa fa-check bigger-110"></i>
-                                       Thêm bài viết
+                                        Thêm bài viết
                                     </button>
                                 </c:if>
                                 &nbsp; &nbsp; &nbsp;
@@ -108,18 +119,20 @@
         // var title = $('#title').val();
         // cách này dung thủ công ta sử dụng cách công nghiệp hơn dùng serializeArray()
         e.preventDefault();
+        var data = {};
         var formData = $('#formAddOrUpdateNew').serializeArray();
         console.log(formData);
         $.each(formData, function (i, v) {
-            data[""+v.name+""] = v.value;
+            data["" + v.name + ""] = v.value;
         });
-    var id = $('#newId').val();
-    if (id == "") {
-        addNew(data);
-    } else {
-        updateNew(data);
-    }
+        var id = $('#newId').val();
+        if (id == "") {
+            addNew(data);
+        } else {
+            updateNew(data);
+        }
     });
+
     function addNew(data) {
         $.ajax({
             url: '${newAPI}',
@@ -128,10 +141,10 @@
             data: JSON.stringify(data),
             dataType: 'json',
             success: function (result) {
-                window.location.href = "${editNewURL}?id="+result.id+"&message=insert_success";
+                window.location.href = "${editNewURL}?id=" + result.id + "&message=insert_success";
             },
             error: function (error) {
-                window.location.href = "${newURL}?page=1&limit=2&message=error_system";
+                window.location.href = "${editNewURL}?page=1&limit=2&message=error_system";
             }
         });
     }
@@ -144,10 +157,10 @@
             data: JSON.stringify(data),
             dataType: 'json',
             success: function (result) {
-                window.location.href = "${editNewURL}?id="+result.id+"&message=update_success";
+                window.location.href = "${editNewURL}?id=" + result.id + "&message=update_success";
             },
             error: function (error) {
-                window.location.href = "${editNewURL}?id="+result.id+"&message=error_system";
+                window.location.href = "${editNewURL}?id=" + result.id + "&message=error_system";
             }
         });
     }

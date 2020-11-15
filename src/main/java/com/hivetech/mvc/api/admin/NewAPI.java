@@ -14,11 +14,11 @@ public class NewAPI {
         return newServiceJPA.save(newDTO);
     }
     @PutMapping("/api/new")
-    public NewDTO updateNewBuilding(@RequestBody NewDTO newDTO){
-        return newServiceJPA.save(newDTO);
+    public NewDTO updateNewBuilding(@RequestBody NewDTO updateNew){
+        return newServiceJPA.save(updateNew);
     }
     @DeleteMapping("/api/new")
     public void  deleteNewBuilding(@RequestBody long[] ids){
-
+        newServiceJPA.delete(ids);
     }
 }

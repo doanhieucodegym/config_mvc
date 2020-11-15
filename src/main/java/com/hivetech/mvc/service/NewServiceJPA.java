@@ -16,4 +16,5 @@ public interface NewServiceJPA {
     NewDTO add(NewDTO dto);
     NewDTO update(NewDTO updateDto);
     NewDTO save(NewDTO dto);
+    void delete(long[] ids);
 }
